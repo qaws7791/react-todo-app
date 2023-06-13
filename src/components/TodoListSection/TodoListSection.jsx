@@ -7,9 +7,8 @@ const TodoListSection = ({ title, todos, deleteTodo, updateTodo }) => {
       <h2 className="TodoListSection__title">{title}</h2>
       <ul className="TodoListSection__list">
         {todos.map((todo) => (
-          <li className="TodoListSection__Item">
+          <li key={todo.id} className="TodoListSection__Item">
           <TodoItem
-            key={todo.id}
             data={todo}
             deleteFunc={deleteTodo}
             changeFunc={updateTodo}
