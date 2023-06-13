@@ -40,7 +40,7 @@ const TodoForm = ({ createTodo }) => {
             name="title"
             value={title}
             onChange={onChangeTitleInput}
-            placeHolder="할일 제목을 입력하세요..."
+            placeholder="할일 제목을 입력하세요..."
           />
         </div>
         <div className="todoForm__formItem">
@@ -51,7 +51,7 @@ const TodoForm = ({ createTodo }) => {
             name="content"
             value={content}
             onChange={onChangeContentInput}
-            placeHolder="할일 내용을 입력하세요..."
+            placeholder="할일 내용을 입력하세요..."
             style={{width:'300px'}}
           />
         </div>
