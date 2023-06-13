@@ -1,6 +1,6 @@
 import TodoListSection from "../TodoListSection/TodoListSection";
 
-const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
+const TodoList = ({ todos, deleteTodo, updateTodoIsDone, startEditTodo }) => {
   const workingTodos = [];
   const doneTodos = [];
 
@@ -15,15 +15,15 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
         title={"진행중인 작업"}
         todos={workingTodos}
         deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        editTodo={editTodo}
+        updateTodoIsDone={updateTodoIsDone}
+        startEditTodo={startEditTodo}
       />
       <TodoListSection
         title={"완료된 작업"}
         todos={doneTodos}
         deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        editTodo={editTodo}
+        updateTodoIsDone={updateTodoIsDone}
+        startEditTodo={startEditTodo}
       />
     </>
   );

@@ -65,7 +65,7 @@ const TodoApp = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const updateTodo = (id) => {
+  const updateTodoIsDone = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
@@ -109,8 +109,8 @@ const TodoApp = () => {
       <TodoList
         todos={todos}
         deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        editTodo={startEditTodo}
+        updateTodoIsDone={updateTodoIsDone}
+        startEditTodo={startEditTodo}
       />
       {editTodo && (
         <TodoModal
