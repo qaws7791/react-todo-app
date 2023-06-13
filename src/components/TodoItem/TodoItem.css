@@ -1,0 +1,22 @@
+.todoItem {
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.todoItem__title {
+  font-size: 2rem;
+  word-wrap: break-word;
+}
+
+.todoItem__content {
+  margin-top: 2rem;
+  font-size: 1.6rem;
+  color: var(--gray-color);
+}
+
+.todoItem__btns {
+  display: flex;
+  margin-top: 3rem;
+  justify-content: space-around;
+}

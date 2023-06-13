@@ -1,0 +1,23 @@
+.button {
+  font-size: 2rem;
+  padding: 0.3em 1.7em;
+  border: 1px solid var(--black-color);
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+  color: var(--black-color);
+  transition: all 200ms ease-in-out;
+}
+
+.button:hover {
+  background-color: #cccccc;
+}
+
+.button--fill {
+  background-color: var(--black-color);
+  color: white;
+}
+
+.button--fill:hover {
+  background-color: #555555;
+}

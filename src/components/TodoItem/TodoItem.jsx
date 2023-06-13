@@ -1,3 +1,6 @@
+import Button from '../Button/Button';
+import './TodoItem.css'
+
 const TodoItem = ({ data, deleteFunc, changeFunc }) => {
   const { id, title, body, isDone } = data;
 
@@ -10,16 +13,16 @@ const TodoItem = ({ data, deleteFunc, changeFunc }) => {
   };
 
   return (
-    <li>
+    <div className="todoItem">
       <div>
-        <p>{title}</p>
-        <p>{body}</p>
+        <h5 className='todoItem__title'>{title}</h5>
+        <p className='todoItem__content'>{body}</p>
       </div>
-      <div>
-        <button onClick={handleDeleteButton}>삭제하기</button>
-        <button onClick={handleChangeButton}>{isDone ? "취소" : "완료"}</button>
+      <div className='todoItem__btns'>
+        <Button onClick={handleDeleteButton}>삭제</Button>
+        <Button onClick={handleChangeButton} buttonState='fill'>{isDone ? "취소" : "완료"}</Button>
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -12,13 +12,13 @@ const TodoList = ({ todos, deleteTodo, updateTodo }) => {
   return (
     <>
       <TodoListSection
-        title={"Working..."}
+        title={"진행중인 작업"}
         todos={workingTodos}
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
       />
       <TodoListSection
-        title={"Done..."}
+        title={"완료된 작업"}
         todos={doneTodos}
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}

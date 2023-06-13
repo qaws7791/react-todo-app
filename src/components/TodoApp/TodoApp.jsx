@@ -6,8 +6,8 @@ const TodoApp = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      title: "리액트 공부하기 false",
-      body: "리액트 기초를 공부해봅시다.",
+      title: "리액트 공부하기리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.",
+      body: "리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
@@ -15,6 +15,36 @@ const TodoApp = () => {
       title: "리액트 공부하기 true",
       body: "리액트 기초를 공부해봅시다.",
       isDone: true,
+    },
+    {
+      id: 3,
+      title: "리액트 공부하기 true",
+      body: "리액트 기초를 공부해봅시다.",
+      isDone: false,
+    },
+    {
+      id: 4,
+      title: "리액트 공부하기 true",
+      body: "리액트 기초를 공부해봅시다.",
+      isDone: false,
+    },
+    {
+      id: 5,
+      title: "리액트 공부하기 true",
+      body: "리액트 기초를 공부해봅시다.",
+      isDone: false,
+    },
+    {
+      id: 6,
+      title: "리액트 공부하기 true",
+      body: "리액트 기초를 공부해봅시다.",
+      isDone: false,
+    },
+    {
+      id: 7,
+      title: "리액트 공부하기 true",
+      body: "리액트 기초를 공부해봅시다.",
+      isDone: false,
     },
   ]);
 
