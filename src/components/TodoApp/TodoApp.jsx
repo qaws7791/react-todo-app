@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import TodoForm from '../TodoForm/TodoForm';
 import TodoList from '../TodoList/TodoList';
-import { BsCheckLg, BsTrash } from 'react-icons/bs';
-import { LuEdit } from 'react-icons/lu';
-import Button from '../Button/Button';
-import { TodoModal } from '../TodoModal';
+import TodoModal from '../TodoModal/TodoModal';
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([

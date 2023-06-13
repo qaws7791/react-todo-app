@@ -1,1 +1,1 @@
-export { default as TodoModal } from "./TodoModal";
+export { default } from "./TodoModal";

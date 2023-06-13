@@ -2,7 +2,6 @@ import React from 'react'
 import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
-import { LuEdit } from 'react-icons/lu';
 import { MdClose } from 'react-icons/md';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
@@ -47,4 +46,4 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
   )
 }
 
-export default TodoModal
+export default TodoModal;
