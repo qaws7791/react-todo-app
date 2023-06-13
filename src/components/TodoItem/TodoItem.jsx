@@ -1,10 +1,9 @@
-import { AiOutlineRollback } from 'react-icons/ai';
 import Button from '../Button/Button';
 import './TodoItem.css'
 import { BsTrash } from 'react-icons/bs'
 import { BsCheckLg } from 'react-icons/bs'
 import {LuEdit} from 'react-icons/lu'
-const TodoItem = ({ data, deleteFunc, changeIsDoneFunc, startEditFunc }) => {
+const TodoItem = ({ data, deleteFunc, changeFunc,editFunc }) => {
   const { id, title, body, isDone } = data;
 
   const handleDeleteButton = () => {
@@ -12,11 +11,11 @@ const TodoItem = ({ data, deleteFunc, changeIsDoneFunc, startEditFunc }) => {
   };
 
   const handleChangeButton = () => {
-    changeIsDoneFunc(id);
+    changeFunc(id);
   };
 
   const handleEditButton = () => {
-    startEditFunc(id);
+    editFunc(id);
   }
 
   return (
@@ -28,7 +27,7 @@ const TodoItem = ({ data, deleteFunc, changeIsDoneFunc, startEditFunc }) => {
       </div>
       <div className='todoItem__btns'>
         <Button onClick={handleDeleteButton} text='삭제'><BsTrash/></Button>
-        <Button onClick={handleChangeButton} buttonState='fill' text={isDone ? "취소" : "완료"}>{isDone ? <AiOutlineRollback/> : <BsCheckLg/>}</Button>
+        <Button onClick={handleChangeButton} buttonState='fill' text={isDone ? "취소" : "완료"}><BsCheckLg/></Button>
       </div>
     </div>
   );

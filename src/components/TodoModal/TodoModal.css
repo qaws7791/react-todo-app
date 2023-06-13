@@ -12,7 +12,6 @@
 
 .todoModal {
   padding: 5rem;
-  border-radius: 1.8rem;
   max-width: 600px;
   width: 100%;
   font-size: 2rem;
@@ -20,7 +19,7 @@
   background-color: var(--white-color);
   min-height: 500px;
   max-height: 900px;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .todoModal_bg {
@@ -41,8 +40,8 @@
 .todoModal__closeBtn {
   display: flex;
   position: absolute;
-  top: 1.4rem;
-  right: 1.4rem;
+  top: 5px;
+  right: 5px;
   height: 40px;
   font-size: 3.4rem;
   width: 40px;
