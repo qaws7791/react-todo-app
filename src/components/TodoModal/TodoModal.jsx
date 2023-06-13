@@ -3,6 +3,7 @@ import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
+import { RiArrowGoBackLine } from 'react-icons/ri';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
 
@@ -39,7 +40,13 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
           </div>
           <div className='todoModal__btns'>
             <Button onClick={deleteTodo} text='삭제하기'><BsTrash/></Button>
-            <Button onClick={updateEditTodoIsDone} buttonState='fill' text={editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}><BsCheckLg/></Button>
+            <Button 
+            onClick={updateEditTodoIsDone} 
+            buttonState='fill' 
+            text={editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}
+            >
+              {editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>} 
+            </Button>
           </div>
         </div>
       </div>

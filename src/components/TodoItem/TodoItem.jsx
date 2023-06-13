@@ -1,8 +1,11 @@
+
 import Button from '../Button/Button';
-import './TodoItem.css'
-import { BsTrash } from 'react-icons/bs'
-import { BsCheckLg } from 'react-icons/bs'
-import {LuEdit} from 'react-icons/lu'
+import './TodoItem.css';
+import { BsTrash } from 'react-icons/bs';
+import { BsCheckLg } from 'react-icons/bs';
+import {LuEdit} from 'react-icons/lu';
+import { RiArrowGoBackLine } from 'react-icons/ri';
+
 const TodoItem = ({ data, deleteFunc, changeFunc,editFunc }) => {
   const { id, title, body, isDone } = data;
 
@@ -27,7 +30,13 @@ const TodoItem = ({ data, deleteFunc, changeFunc,editFunc }) => {
       </div>
       <div className='todoItem__btns'>
         <Button onClick={handleDeleteButton} text='삭제'><BsTrash/></Button>
-        <Button onClick={handleChangeButton} buttonState='fill' text={isDone ? "취소" : "완료"}><BsCheckLg/></Button>
+        <Button 
+        onClick={handleChangeButton} 
+        buttonState='fill' 
+        text={isDone ? "취소" : "완료"}
+        >
+          {isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>}
+        </Button>
       </div>
     </div>
   );
