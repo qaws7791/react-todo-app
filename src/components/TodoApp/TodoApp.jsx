@@ -1,52 +1,58 @@
 import React, { useState } from 'react'
 import TodoForm from '../TodoForm/TodoForm';
 import TodoList from '../TodoList/TodoList';
+import { BsCheckLg, BsTrash } from 'react-icons/bs';
+import { LuEdit } from 'react-icons/lu';
+import Button from '../Button/Button';
+import { TodoModal } from '../TodoModal';
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      title: "리액트 공부하기리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.",
+      title: "리액트 공부하기1",
       body: "리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
       id: 2,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 2",
       body: "리액트 기초를 공부해봅시다.",
       isDone: true,
     },
     {
       id: 3,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 3",
       body: "리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
       id: 4,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 4",
       body: "리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
       id: 5,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 5",
       body: "리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
       id: 6,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 6",
       body: "리액트 기초를 공부해봅시다.",
       isDone: false,
     },
     {
       id: 7,
-      title: "리액트 공부하기 true",
+      title: "리액트 공부하기 7",
       body: "리액트 기초를 공부해봅시다.",
       isDone: false,
     },
   ]);
+
+  const [editTodo,setEditTodo] = useState(null);
 
   const createTodo = (title, body) => {
     const newTodo = {
@@ -70,6 +76,36 @@ const TodoApp = () => {
     );
   };
 
+  const startEditTodo = (id) => {
+    const editTodo = todos.filter(todo => todo.id === id)[0]
+    setEditTodo(editTodo);
+  }
+
+  const endEditTodo = () => {
+    setTodos((prevTodos) =>
+    prevTodos.map((todo) =>
+      todo.id === editTodo.id ? editTodo : todo
+    )
+  );
+    setEditTodo(null);
+  }
+  const deleteEditTodo = () => {
+    deleteTodo(editTodo.id);
+    setEditTodo(null);
+  }
+
+  const updateEditTodoTitle = (title) => {
+    setEditTodo((prevTodo)=> { return{...prevTodo,title}})
+  }
+
+  const updateEditTodoBody = (body) => {
+    setEditTodo((prevTodo)=> { return{...prevTodo,body} })
+  }
+
+  const updateEditTodoIsDone = () => {
+    setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
+  }
+
   return (
     <div>
       <TodoForm createTodo={createTodo} />
@@ -77,7 +113,19 @@ const TodoApp = () => {
         todos={todos}
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
+        editTodo={startEditTodo}
       />
+      {editTodo && (
+        <TodoModal
+        editTodo={editTodo}
+        endEditTodo={endEditTodo}
+        updateEditTodoTitle={updateEditTodoTitle}
+        updateEditTodoBody={updateEditTodoBody}
+        deleteTodo={deleteEditTodo}
+        updateEditTodoIsDone={updateEditTodoIsDone}
+        />
+      )}
+
     </div>
   )
 }

@@ -1,0 +1,57 @@
+.todoModal__container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.todoModal {
+  padding: 5rem;
+  max-width: 600px;
+  width: 100%;
+  font-size: 2rem;
+  position: absolute;
+  background-color: var(--white-color);
+  min-height: 500px;
+  max-height: 900px;
+  overflow-y: scroll;
+}
+
+.todoModal_bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.todoModal__title {
+  font-size: 3.2rem;
+}
+
+.todoModal__content {
+  margin-top: 3rem; 
+  min-height: 300px;
+}
+
+.todoModal__closeBtn {
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 40px;
+  font-size: 3.4rem;
+  width: 40px;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+}
+
+.todoModal__btns {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-around;
+}

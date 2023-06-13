@@ -1,7 +1,7 @@
 import TodoItem from "../TodoItem/TodoItem";
 import './TodoListSection.css';
 
-const TodoListSection = ({ title, todos, deleteTodo, updateTodo }) => {
+const TodoListSection = ({ title, todos, deleteTodo, updateTodo,editTodo }) => {
   return (
     <div className="TodoListSection">
       <h2 className="TodoListSection__title">{title}</h2>
@@ -12,6 +12,7 @@ const TodoListSection = ({ title, todos, deleteTodo, updateTodo }) => {
             data={todo}
             deleteFunc={deleteTodo}
             changeFunc={updateTodo}
+            editFunc={editTodo}
           />
           </li>
         ))}
