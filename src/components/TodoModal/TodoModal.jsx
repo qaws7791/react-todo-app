@@ -3,7 +3,9 @@ import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
+
 import { RiArrowGoBackLine } from 'react-icons/ri';
+import IconButton from '../IconButton/IconButton';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
 
@@ -19,7 +21,15 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
     <div className='todoModal__container'>
         <div className='todoModal_bg' onClick={endEditTodo}></div>
         <div className="todoModal">
-          <div className='todoModal__closeBtn' onClick={endEditTodo}><MdClose/></div>
+          <div className='todoModal__closeBtn'>
+          <IconButton 
+            className='todoModal__closeBtn' 
+            onClick={endEditTodo}
+            role='할일 모달 닫기'
+          >
+            <MdClose/>
+          </IconButton>
+          </div>
           <div>
             <h5 
               className='todoModal__title' 

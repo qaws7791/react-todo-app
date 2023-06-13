@@ -4,7 +4,6 @@ const Button = ({text='' ,type = 'button', buttonState='outlined', children = 'b
   const classNames = buttonState === "fill" ? 'button button--fill' : 'button';
   return (
     <button type={type} className={classNames} {...props}>
-    
     <span className='button__text'>{text}</span>
     {children}
     </button>
