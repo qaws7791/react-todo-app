@@ -1,53 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TodoForm from '../TodoForm/TodoForm';
 import TodoList from '../TodoList/TodoList';
 import TodoModal from '../TodoModal/TodoModal';
 
 const TodoApp = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "리액트 공부하기1",
-      body: "리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-    {
-      id: 2,
-      title: "리액트 공부하기 2",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: true,
-    },
-    {
-      id: 3,
-      title: "리액트 공부하기 3",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-    {
-      id: 4,
-      title: "리액트 공부하기 4",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-    {
-      id: 5,
-      title: "리액트 공부하기 5",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-    {
-      id: 6,
-      title: "리액트 공부하기 6",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-    {
-      id: 7,
-      title: "리액트 공부하기 7",
-      body: "리액트 기초를 공부해봅시다.",
-      isDone: false,
-    },
-  ]);
+  const [todos, setTodos] = useState(null);
 
   const [editTodo,setEditTodo] = useState(null);
 
@@ -103,6 +60,38 @@ const TodoApp = () => {
     setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
   }
 
+  const validateTodo = (todo) => {
+    const { id, title, body, isDone } = todo
+    if(typeof id !== 'number') return false
+    if(typeof title !== 'string') return false
+    if(typeof body !== 'string') return false
+    if(typeof isDone !== 'boolean') return false
+    return true
+  }
+
+  useEffect(() => {
+    if(todos) {
+      const todosString = JSON.stringify(todos)
+      localStorage.setItem('todoData',todosString)
+    }
+  },[todos])
+
+  useEffect(() => {
+    const todoData = localStorage.getItem('todoData')
+    try{
+      const parsedTodoData = JSON.parse(todoData)
+      if(parsedTodoData) {
+        const validatedData = parsedTodoData.filter(todo => validateTodo(todo))
+        setTodos(validatedData)
+      } else {
+        setTodos([])
+      }
+    } catch (error) {
+      console.error('localStorage에서 데이터를 가져올 수 없습니다.')
+      setTodos([])
+    }
+  },[])
+
   return (
     <div>
       <TodoForm createTodo={createTodo} />
@@ -122,7 +111,6 @@ const TodoApp = () => {
         updateEditTodoIsDone={updateEditTodoIsDone}
         />
       )}
-
     </div>
   )
 }
