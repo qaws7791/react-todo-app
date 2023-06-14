@@ -4,10 +4,12 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
   const workingTodos = [];
   const doneTodos = [];
 
-  todos.forEach((item) => {
-    if (item.isDone) doneTodos.push(item);
-    else workingTodos.push(item);
-  });
+  if(todos?.length > 0) {
+    todos.forEach((item) => {
+      if (item.isDone) doneTodos.push(item);
+      else workingTodos.push(item);
+    });
+  }
 
   return (
     <>
