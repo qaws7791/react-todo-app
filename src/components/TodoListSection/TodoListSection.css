@@ -20,4 +20,5 @@
   width: 360px;
   list-style: none;
   position: absolute;
+  transition: transform 200ms ease-in-out;
 }
