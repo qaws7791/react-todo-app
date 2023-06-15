@@ -8,7 +8,17 @@
 }
 
 .TodoListSection__list {
-  gap: 3rem;
+  position: relative;
+  /* gap: 3rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); */
+}
+
+
+.TodoListSection__Item {
+  display: inline-block;
+  width: 360px;
+  list-style: none;
+  position: absolute;
+  transition: transform 200ms ease-in-out;
 }

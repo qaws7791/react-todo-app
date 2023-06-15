@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
@@ -8,14 +8,42 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
+  const selectionRef = useRef(null)
 
   const handleInputTitle = (e) => {
+    const { anchorNode,anchorOffset } = window.getSelection()
+    setSelectionRef(anchorNode,anchorOffset)
     updateEditTodoTitle(e.target.innerText)
   }
 
   const handleInputBody = (e) => {
+    const { anchorNode,anchorOffset } = window.getSelection()
+    setSelectionRef(anchorNode,anchorOffset)
     updateEditTodoBody(e.target.innerText)
   }
+
+  const setSelectionRef = (anchorNode, anchorOffset) => {
+    selectionRef.current = { anchorNode, anchorOffset}
+  }
+
+  const getSelectionRef = () => {
+    return selectionRef.current
+  }
+
+  const clearSelectionRef = () => {
+    selectionRef.current = null
+  }
+
+  const handleBlur = () => {
+    clearSelectionRef()
+  }
+
+  useEffect(() => {
+    if(selectionRef.current) {
+      const { anchorNode, anchorOffset } = getSelectionRef()
+      window.getSelection().collapse(anchorNode, anchorOffset)
+    }
+  })
 
   return (
     <div className='todoModal__container'>
@@ -36,6 +64,7 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
               contentEditable='true' 
               suppressContentEditableWarning={true} 
               onInput={handleInputTitle}
+              onBlur={handleBlur}
             >
               {editTodo.title}
             </h5>
@@ -44,6 +73,7 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
               contentEditable='true' 
               suppressContentEditableWarning={true} 
               onInput={handleInputBody}
+              onBlur={handleBlur}
             >
             {editTodo.body}
             </p>

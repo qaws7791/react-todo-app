@@ -4,10 +4,12 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
   const workingTodos = [];
   const doneTodos = [];
 
-  todos.forEach((item) => {
-    if (item.isDone) doneTodos.push(item);
-    else workingTodos.push(item);
-  });
+  if(todos?.length > 0) {
+    todos.forEach((item) => {
+      if (item.isDone) doneTodos.push(item);
+      else workingTodos.push(item);
+    });
+  }
 
   return (
     <>
@@ -17,6 +19,8 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
         editTodo={editTodo}
+        columnWidth={360}
+        rowGap={20}
       />
       <TodoListSection
         title={"완료된 작업"}
@@ -24,6 +28,8 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
         editTodo={editTodo}
+        columnWidth={360}
+        rowGap={20}
       />
     </>
   );
