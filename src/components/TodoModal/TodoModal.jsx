@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
@@ -8,51 +8,36 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
-  const selectionRef = useRef(null)
+  const todoTitle = useRef(editTodo.title);
+  const todoBody = useRef(editTodo.body);
 
   const handleInputTitle = (e) => {
-    const { anchorNode,anchorOffset } = window.getSelection()
-    setSelectionRef(anchorNode,anchorOffset)
-    updateEditTodoTitle(e.target.innerText)
+    todoTitle.current = e.target.innerText;
   }
 
   const handleInputBody = (e) => {
-    const { anchorNode,anchorOffset } = window.getSelection()
-    setSelectionRef(anchorNode,anchorOffset)
-    updateEditTodoBody(e.target.innerText)
-  }
-
-  const setSelectionRef = (anchorNode, anchorOffset) => {
-    selectionRef.current = { anchorNode, anchorOffset}
-  }
-
-  const getSelectionRef = () => {
-    return selectionRef.current
-  }
-
-  const clearSelectionRef = () => {
-    selectionRef.current = null
+    todoBody.current = e.target.innerText;
   }
 
   const handleBlur = () => {
-    clearSelectionRef()
+    updateEditTodoTitle(todoTitle.current);
+    updateEditTodoBody(todoBody.current);
   }
 
-  useEffect(() => {
-    if(selectionRef.current) {
-      const { anchorNode, anchorOffset } = getSelectionRef()
-      window.getSelection().collapse(anchorNode, anchorOffset)
-    }
-  })
+  const handleCloseModal = () => {
+    updateEditTodoTitle(todoTitle.current);
+    updateEditTodoBody(todoBody.current);
+    endEditTodo()
+  }
 
   return (
     <div className='todoModal__container'>
-        <div className='todoModal_bg' onClick={endEditTodo}></div>
+        <div className='todoModal_bg' onClick={handleCloseModal}></div>
         <div className="todoModal">
           <div className='todoModal__closeBtn'>
           <IconButton 
             className='todoModal__closeBtn' 
-            onClick={endEditTodo}
+            onClick={handleCloseModal}
             role='할일 모달 닫기'
           >
             <MdClose/>
@@ -63,10 +48,10 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
               className='todoModal__title' 
               contentEditable='true' 
               suppressContentEditableWarning={true} 
-              onInput={handleInputTitle}
+              onKeyUp={handleInputTitle}
               onBlur={handleBlur}
             >
-              {editTodo.title}
+              {todoTitle.current}
             </h5>
             <p 
               className='todoModal__content' 
@@ -75,7 +60,7 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
               onInput={handleInputBody}
               onBlur={handleBlur}
             >
-            {editTodo.body}
+            {todoBody.current}
             </p>
           </div>
           <div className='todoModal__btns'>
