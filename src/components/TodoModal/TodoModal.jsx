@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import './TodoModal.css';
 import Button from '../Button/Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
