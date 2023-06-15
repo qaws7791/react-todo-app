@@ -71,6 +71,7 @@ const TodoApp = () => {
 
   useEffect(() => {
     if(todos) {
+      todos.forEach(todo=>console.log(todo.id))
       const todosString = JSON.stringify(todos)
       localStorage.setItem('todoData',todosString)
     }
