@@ -1,10 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import './TodoListSection.css';
 
-const TodoListSection = ({ title, todos, deleteTodo, updateTodo,editTodo }) => {
+const TodoListSection = ({ 
+  title,
+  todos,
+  deleteTodo,
+  updateTodo,
+  editTodo,
+  columnWidth = 300,
+  rowGap = 20 
+}) => {
   const componentRef = useRef(null);
-
   useEffect(() => {
     const handleResize = () => {
       calcPositions()
@@ -17,22 +25,18 @@ const TodoListSection = ({ title, todos, deleteTodo, updateTodo,editTodo }) => {
   })
 
   function calcPositions() {
-    const colWidth = 360;
-    const colLength = Math.floor(componentRef.current.offsetWidth / colWidth);
+    const colLength = Math.floor(componentRef.current.offsetWidth / columnWidth);
+    const colGap = (componentRef.current.offsetWidth % columnWidth) / (colLength + 1);
     const childElements = componentRef.current.childNodes;
-    console.log(childElements)
-    let sumWidth = 0;
+    let sumWidth = colGap;
     let sumHeight = new Array(colLength).fill(0);
-    const rowGap = 20;
     for (let i = 0; i < childElements.length; i++) {
       childElements[i].style.transform = `translate(${sumWidth}px, ${sumHeight[i%colLength]}px)`;
 
-      sumWidth += childElements[i].offsetWidth
+      sumWidth += childElements[i].offsetWidth+colGap;
       sumHeight[i%colLength] += childElements[i].offsetHeight + rowGap;
 
-      if( i % colLength === colLength-1) {
-        sumWidth = 0;
-      }  
+      if( i % colLength === colLength-1) sumWidth = colGap
     }
     componentRef.current.style.height =`${Math.max(...sumHeight)}px`
   }

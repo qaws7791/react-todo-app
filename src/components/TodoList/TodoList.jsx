@@ -19,6 +19,8 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
         editTodo={editTodo}
+        columnWidth={360}
+        rowGap={20}
       />
       <TodoListSection
         title={"완료된 작업"}
@@ -26,6 +28,8 @@ const TodoList = ({ todos, deleteTodo, updateTodo, editTodo }) => {
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
         editTodo={editTodo}
+        columnWidth={360}
+        rowGap={20}
       />
     </>
   );
