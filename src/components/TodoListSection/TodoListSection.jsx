@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import './TodoListSection.css';
 
@@ -12,11 +12,23 @@ const TodoListSection = ({
   rowGap = 20 
 }) => {
   const componentRef = useRef(null);
-  useEffect(() => {
-    const handleResize = () => {
-      calcPositions()
+  const [resizing, setResizing] = useState(false);
+
+  const handleResize = () => {
+    if(!resizing) {
+      setResizing(true)
+      setTimeout(() => {
+        if(componentRef)calcPositions()
+        setResizing(false)
+      }, 500)
     }
+  }
+
+  useEffect(() => {
     handleResize();
+  })
+
+  useEffect(() => {
     window.addEventListener('resize',handleResize)
     return () => {
       window.removeEventListener('resize',handleResize)
