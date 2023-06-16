@@ -14,18 +14,21 @@ const TodoListSection = ({
   const componentRef = useRef(null);
   const [resizing, setResizing] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if(!resizing) {
-        setResizing(true)
-        setTimeout(() => {
-          calcPositions()
-          setResizing(false)
-        }, 500)
-      }
-      
+  const handleResize = () => {
+    if(!resizing) {
+      setResizing(true)
+      setTimeout(() => {
+        if(componentRef)calcPositions()
+        setResizing(false)
+      }, 500)
     }
+  }
+
+  useEffect(() => {
     handleResize();
+  })
+
+  useEffect(() => {
     window.addEventListener('resize',handleResize)
     return () => {
       window.removeEventListener('resize',handleResize)
