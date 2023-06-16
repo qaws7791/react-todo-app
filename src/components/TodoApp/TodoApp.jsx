@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import TodoForm from '../TodoForm/TodoForm';
-import TodoList from '../TodoList/TodoList';
-import TodoModal from '../TodoModal/TodoModal';
+import { v4 as uuidv4 } from 'uuid'
+import TodoForm from '../TodoForm/TodoForm'
+import TodoList from '../TodoList/TodoList'
+import TodoModal from '../TodoModal/TodoModal'
 
 const TodoApp = () => {
   const [todos, setTodos] = useState(null);
@@ -10,7 +11,7 @@ const TodoApp = () => {
 
   const createTodo = (title, body) => {
     const newTodo = {
-      id: todos.length + 1,
+      id: uuidv4(),
       title,
       body,
       isDone: false,
@@ -62,7 +63,7 @@ const TodoApp = () => {
 
   const validateTodo = (todo) => {
     const { id, title, body, isDone } = todo
-    if(typeof id !== 'number') return false
+    if(typeof id !== 'string') return false
     if(typeof title !== 'string') return false
     if(typeof body !== 'string') return false
     if(typeof isDone !== 'boolean') return false
