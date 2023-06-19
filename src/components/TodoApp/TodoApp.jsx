@@ -5,12 +5,14 @@ import TodoList from '../TodoList/TodoList'
 import TodoModal from '../TodoModal/TodoModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTodo, deleteTodo, updateTodo } from '../../redux/modules/todos'
+import { useParams } from 'react-router-dom'
 
 const TodoApp = () => {
   // const [todos, setTodos] = useState(null);
 
   const [editTodo,setEditTodo] = useState(null);
-
+  const { id } = useParams();
+  console.log('id: ', id)
   const todos = useSelector((state) => {
     return state.todos;
   })
@@ -27,7 +29,12 @@ const TodoApp = () => {
     // setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-
+useEffect(() => {
+  console.log(todos)
+  const data =   Object.values(todos).find(todo => todo.id === id);
+  console.log(data)
+  if(data) setEditTodo(data)
+})
 
 
 

@@ -15,7 +15,7 @@ const TodoListSection = ({
     if(!resizing) {
       setResizing(true)
       setTimeout(() => {
-        if(componentRef)calcPositions()
+        if(componentRef?.current?.offsetWidth)calcPositions()
         setResizing(false)
       }, 500)
     }

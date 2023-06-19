@@ -6,11 +6,12 @@ import { MdClose } from 'react-icons/md';
 
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
+import { useNavigate } from 'react-router-dom';
 
 const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
   const todoTitle = useRef(editTodo.title);
   const todoBody = useRef(editTodo.body);
-
+  const navigate = useNavigate();
   const handleInputTitle = (e) => {
     todoTitle.current = e.target.innerText;
   }
@@ -28,6 +29,7 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
     updateEditTodoTitle(todoTitle.current);
     updateEditTodoBody(todoBody.current);
     endEditTodo()
+    navigate("/")
   }
 
   return (
