@@ -22,7 +22,7 @@ const TodoListSection = ({
   }
 
   useEffect(() => {
-    handleResize();
+    if(componentRef?.current?.offsetWidth)calcPositions()
   })
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const TodoListSection = ({
 
       if (colIndex === colLength - 1) sumX = colGap;
     });
+    console.log(sumY,new Date())
     listComponent.style.height = `${Math.max(...sumY)}px`;
   }
 

@@ -26,6 +26,7 @@ export const toggleTodoStatus = (id) => {
 };
 
 export const deleteTodo = (id) => {
+  console.log("deleteTodo: ", id);
   return (dispatch, getState) => {
     dispatch({ type: DELETE_TODO, payload: id });
 
