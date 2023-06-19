@@ -6,12 +6,11 @@ import { MdClose } from 'react-icons/md';
 
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
-import { useNavigate } from 'react-router-dom';
 
-const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
+const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEditTodoIsDone }) => {
   const todoTitle = useRef(editTodo.title);
   const todoBody = useRef(editTodo.body);
-  const navigate = useNavigate();
+
   const handleInputTitle = (e) => {
     todoTitle.current = e.target.innerText;
   }
@@ -21,15 +20,21 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
   }
 
   const handleBlur = () => {
-    updateEditTodoTitle(todoTitle.current);
-    updateEditTodoBody(todoBody.current);
+    updateEditTodo({...editTodo,title: todoTitle.current, body: todoBody.current})
   }
 
   const handleCloseModal = () => {
-    updateEditTodoTitle(todoTitle.current);
-    updateEditTodoBody(todoBody.current);
+    updateEditTodo({...editTodo,title: todoTitle.current, body: todoBody.current})
     endEditTodo()
-    navigate("/")
+  }
+
+  const handleDeleteTodo = () => {
+    deleteTodo();
+  }
+
+
+  const handleToggleIsDone = () => {
+    updateEditTodoIsDone();
   }
 
   return (
@@ -66,9 +71,9 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
             </p>
           </div>
           <div className='todoModal__btns'>
-            <Button onClick={deleteTodo} text='삭제하기'><BsTrash/></Button>
+            <Button onClick={handleDeleteTodo} text='삭제하기'><BsTrash/></Button>
             <Button 
-            onClick={updateEditTodoIsDone} 
+            onClick={handleToggleIsDone} 
             buttonState='fill' 
             text={editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}
             >
