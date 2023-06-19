@@ -5,9 +5,6 @@ import './TodoListSection.css';
 const TodoListSection = ({ 
   title,
   todos,
-  deleteTodo,
-  updateTodo,
-  editTodo,
   columnWidth = 300,
   rowGap = 20 
 }) => {
@@ -67,9 +64,6 @@ const TodoListSection = ({
           <li key={todo.id} className="TodoListSection__Item">
           <TodoItem
             data={todo}
-            deleteFunc={deleteTodo}
-            changeFunc={updateTodo}
-            editFunc={editTodo}
           />
           </li>
         ))}
