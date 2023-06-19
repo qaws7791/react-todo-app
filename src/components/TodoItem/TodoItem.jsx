@@ -6,20 +6,24 @@ import { BsCheckLg } from 'react-icons/bs';
 import {LuEdit} from 'react-icons/lu';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
+import { useDispatch } from 'react-redux';
+import { deleteTodo, toggleTodoStatus } from '../../redux/modules/todos';
 
-const TodoItem = ({ data, deleteFunc, changeFunc,editFunc }) => {
+const TodoItem = ({ data, editFunc }) => {
   const { id, title, body, isDone } = data;
 
+  const dispatch = useDispatch();
+
   const handleDeleteButton = () => {
-    deleteFunc(id);
+    dispatch(deleteTodo(id))
   };
 
   const handleChangeButton = () => {
-    changeFunc(id);
+    dispatch(toggleTodoStatus(id))
   };
 
   const handleEditButton = () => {
-    editFunc(id);
+    // editFunc(id);
   }
 
   return (

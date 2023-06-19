@@ -3,33 +3,33 @@ import { v4 as uuidv4 } from 'uuid'
 import TodoForm from '../TodoForm/TodoForm'
 import TodoList from '../TodoList/TodoList'
 import TodoModal from '../TodoModal/TodoModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { createTodo, deleteTodo, updateTodo } from '../../redux/modules/todos'
 
 const TodoApp = () => {
-  const [todos, setTodos] = useState(null);
+  // const [todos, setTodos] = useState(null);
 
   const [editTodo,setEditTodo] = useState(null);
 
-  const createTodo = (title, body) => {
+  const todos = useSelector((state) => {
+    return state.todos;
+  })
+  console.log(todos)
+  const dispatch = useDispatch();
+  const createTodoFunc = (title, body) => {
     const newTodo = {
       id: uuidv4(),
       title,
       body,
       isDone: false,
     };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    dispatch(createTodo(newTodo))
+    // setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-  const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  };
 
-  const updateTodo = (id) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
-  };
+
+
 
   const startEditTodo = (id) => {
     const editTodo = todos.filter(todo => todo.id === id)[0]
@@ -37,15 +37,16 @@ const TodoApp = () => {
   }
 
   const endEditTodo = () => {
-    setTodos((prevTodos) =>
-    prevTodos.map((todo) =>
-      todo.id === editTodo.id ? editTodo : todo
-    )
-  );
+    dispatch(updateTodo(editTodo))
+  //   setTodos((prevTodos) =>
+  //   prevTodos.map((todo) =>
+  //     todo.id === editTodo.id ? editTodo : todo
+  //   )
+  // );
     setEditTodo(null);
   }
   const deleteEditTodo = () => {
-    deleteTodo(editTodo.id);
+    dispatch(deleteTodo(editTodo.id))
     setEditTodo(null);
   }
 
@@ -70,38 +71,37 @@ const TodoApp = () => {
     return true
   }
 
-  useEffect(() => {
-    if(todos) {
-      todos.forEach(todo=>console.log(todo.id))
-      const todosString = JSON.stringify(todos)
-      localStorage.setItem('todoData',todosString)
-    }
-  },[todos])
+  // useEffect(() => {
+  //   if(todos) {
+  //     todos.forEach(todo=>console.log(todo.id))
+  //     const todosString = JSON.stringify(todos)
+  //     localStorage.setItem('todoData',todosString)
+  //   }
+  // },[todos])
 
-  useEffect(() => {
-    const todoData = localStorage.getItem('todoData')
-    try{
-      const parsedTodoData = JSON.parse(todoData)
-      if(parsedTodoData) {
-        const validatedData = parsedTodoData.filter(todo => validateTodo(todo))
-        setTodos(validatedData)
-      } else {
-        setTodos([])
-      }
-    } catch (error) {
-      console.error('localStorage에서 데이터를 가져올 수 없습니다.')
-      setTodos([])
-    }
-  },[])
+  // useEffect(() => {
+  //   const todoData = localStorage.getItem('todoData')
+  //   try{
+  //     const parsedTodoData = JSON.parse(todoData)
+  //     if(parsedTodoData) {
+  //       parsedTodoData.forEach((todo) => {
+  //         if(validateTodo(todo)) {
+  //           console.log(todo)
+  //           dispatch(createTodo(todo))
+  //         }
+  //       })
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.error('localStorage에서 데이터를 가져올 수 없습니다.')
+  //   }
+  // },[])
 
   return (
     <div>
-      <TodoForm createTodo={createTodo} />
+      <TodoForm createTodo={createTodoFunc} />
       <TodoList
         todos={todos}
-        deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        editTodo={startEditTodo}
       />
       {editTodo && (
         <TodoModal
