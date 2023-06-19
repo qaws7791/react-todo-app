@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import TodoForm from '../TodoForm/TodoForm'
 import TodoList from '../TodoList/TodoList'
@@ -38,10 +38,10 @@ useEffect(() => {
 
 
 
-  const startEditTodo = (id) => {
-    const editTodo = todos.filter(todo => todo.id === id)[0]
-    setEditTodo(editTodo);
-  }
+  // const startEditTodo = (id) => {
+  //   const editTodo = todos.filter(todo => todo.id === id)[0]
+  //   setEditTodo(editTodo);
+  // }
 
   const endEditTodo = () => {
     dispatch(updateTodo(editTodo))
@@ -69,14 +69,7 @@ useEffect(() => {
     setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
   }
 
-  const validateTodo = (todo) => {
-    const { id, title, body, isDone } = todo
-    if(typeof id !== 'string') return false
-    if(typeof title !== 'string') return false
-    if(typeof body !== 'string') return false
-    if(typeof isDone !== 'boolean') return false
-    return true
-  }
+
 
   // useEffect(() => {
   //   if(todos) {

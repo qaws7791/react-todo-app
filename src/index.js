@@ -5,8 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/config/configStore";
+import { loadLocalStorage } from "./redux/modules/todos";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+store.dispatch(loadLocalStorage());
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
