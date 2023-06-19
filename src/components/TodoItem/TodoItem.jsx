@@ -8,6 +8,7 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
 import { useDispatch } from 'react-redux';
 import { deleteTodo, toggleTodoStatus } from '../../redux/modules/todos';
+import { Link } from 'react-router-dom';
 
 const TodoItem = ({ data, editFunc }) => {
   const { id, title, body, isDone } = data;
@@ -30,13 +31,15 @@ const TodoItem = ({ data, editFunc }) => {
     <div className="todoItem">
       <div>
         <h5 className='todoItem__title'>{title}</h5>
-        <IconButton 
-          onClick={handleEditButton} 
-          className='todoItem__editBtn'
-          role='할일 편집을 위해 모달 열기'
-        >
-          <LuEdit/>
-        </IconButton>
+        <Link to={`/todo/${id}`}>
+          <IconButton 
+            onClick={handleEditButton} 
+            className='todoItem__editBtn'
+            role='할일 편집을 위해 모달 열기'
+          >
+            <LuEdit/>
+          </IconButton>
+        </Link>
         <p className='todoItem__content'>{body}</p>
       </div>
       <div className='todoItem__btns'>
