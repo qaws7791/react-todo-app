@@ -56,3 +56,8 @@
   display: flex;
   justify-content: space-around;
 }
+
+.todoModal__footer {
+  color: #939393;
+  margin-top: 2rem;
+}
