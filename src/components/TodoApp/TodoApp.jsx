@@ -20,7 +20,6 @@ const TodoApp = () => {
   useEffect(() => {
     if(id) {
       const data = Object.values(todos).find(todo => todo.id === id);
-      console.log(data)
       if(data) setEditTodo(data)
     } else {
       setEditTodo(null)
@@ -30,13 +29,7 @@ const TodoApp = () => {
 
 
   const createTodoFunc = (title, body) => {
-    const newTodo = {
-      id: uuidv4(),
-      title,
-      body,
-      isDone: false,
-    };
-    dispatch(createTodo(newTodo))
+    dispatch(createTodo(title, body))
   };
 
 
@@ -46,7 +39,6 @@ const TodoApp = () => {
     navigate('/')
   }
   const deleteEditTodo = () => {
-    console.log(editTodo.id)
     dispatch(deleteTodo(editTodo.id))
     setEditTodo(null);
   }
