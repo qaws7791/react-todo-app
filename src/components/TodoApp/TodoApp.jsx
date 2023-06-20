@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import TodoForm from '../TodoForm/TodoForm'
 import TodoList from '../TodoList/TodoList'
 import TodoModal from '../TodoModal/TodoModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTodo, deleteTodo, updateTodo } from '../../redux/modules/todos'
+import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../../redux/modules/todos'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const TodoApp = () => {
@@ -17,21 +16,9 @@ const TodoApp = () => {
     return state.todos;
   })
 
-  useEffect(() => {
-    if(id) {
-      const data = Object.values(todos).find(todo => todo.id === id);
-      if(data) setEditTodo(data)
-    } else {
-      setEditTodo(null)
-    }
-
-  }, [location]);
-
-
   const createTodoFunc = (title, body) => {
     dispatch(createTodo(title, body))
   };
-
 
   // editTodo //
   const endEditTodo = () => {
@@ -45,19 +32,23 @@ const TodoApp = () => {
 
   const updateEditTodo = (newTodo) => {
     setEditTodo(newTodo)
-  }
-
-  const updateEditTodoTitle = (title) => {
-    setEditTodo((prevTodo)=> { return{...prevTodo,title}})
-  }
-
-  const updateEditTodoBody = (body) => {
-    setEditTodo((prevTodo)=> { return{...prevTodo,body} })
+    dispatch(updateTodo(newTodo))
   }
 
   const updateEditTodoIsDone = () => {
     setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
+    dispatch(toggleTodoStatus(editTodo.id))
   }
+
+  useEffect(() => {
+    if(id) {
+      const data = Object.values(todos).find(todo => todo.id === id);
+      if(data) setEditTodo(data)
+      else navigate('/')
+    } else {
+      setEditTodo(null)
+    }
+  }, [location,editTodo,id,todos]);
 
   return (
     <div>
@@ -69,8 +60,6 @@ const TodoApp = () => {
         <TodoModal
         editTodo={editTodo}
         endEditTodo={endEditTodo}
-        updateEditTodoTitle={updateEditTodoTitle}
-        updateEditTodoBody={updateEditTodoBody}
         deleteTodo={deleteEditTodo}
         updateEditTodoIsDone={updateEditTodoIsDone}
         updateEditTodo={updateEditTodo}

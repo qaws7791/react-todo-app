@@ -82,6 +82,8 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
           </div>
           <div className='todoModal__footer'>
             <span>ID: {editTodo.id}</span>
+            <span>생성 시각: {new Date(editTodo.createdAt).toLocaleString()}</span>
+            <span>수정 시각: {new Date(editTodo.updatedAt).toLocaleString()}</span>
           </div>
         </div>
       </div>

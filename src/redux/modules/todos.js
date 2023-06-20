@@ -86,7 +86,11 @@ const todos = (state = initialState, action) => {
     case TOGGLE_TODO_STATUS:
       return state.map((todo) =>
         todo.id === action.payload.id
-          ? { ...todo, updateAt: action.payload.updateAt, isDone: !todo.isDone }
+          ? {
+              ...todo,
+              updatedAt: action.payload.updatedAt,
+              isDone: !todo.isDone,
+            }
           : todo
       );
     case DELETE_TODO:

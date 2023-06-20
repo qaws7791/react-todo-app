@@ -58,6 +58,9 @@
 }
 
 .todoModal__footer {
+  font-size: 1.6rem;
+  display: flex;
   color: #939393;
   margin-top: 2rem;
+  flex-direction: column;
 }
