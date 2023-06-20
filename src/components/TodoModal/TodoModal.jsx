@@ -80,6 +80,9 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
               {editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>} 
             </Button>
           </div>
+          <div className='todoModal__footer'>
+            <span>ID: {editTodo.id}</span>
+          </div>
         </div>
       </div>
   )
