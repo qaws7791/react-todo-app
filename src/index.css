@@ -19,6 +19,11 @@ li {
   list-style: none;
 }
 
+a {
+  display: inline-block;
+  color: var(--black-color);
+}
+
 
 /* variables */
 :root {

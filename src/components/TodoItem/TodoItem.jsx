@@ -31,15 +31,15 @@ const TodoItem = ({ data, editFunc }) => {
     <div className="todoItem">
       <div>
         <h5 className='todoItem__title'>{title}</h5>
-        <Link to={`/todo/${id}`}>
           <IconButton 
             onClick={handleEditButton} 
             className='todoItem__editBtn'
             role='할일 편집을 위해 모달 열기'
           >
+            <Link to={`/todo/${id}`}>
             <LuEdit/>
+            </Link>
           </IconButton>
-        </Link>
         <p className='todoItem__content'>{body}</p>
       </div>
       <div className='todoItem__btns'>
