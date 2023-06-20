@@ -1,116 +1,68 @@
 import React, { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import TodoForm from '../TodoForm/TodoForm'
 import TodoList from '../TodoList/TodoList'
 import TodoModal from '../TodoModal/TodoModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../../redux/modules/todos'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const TodoApp = () => {
-  const [todos, setTodos] = useState(null);
-
   const [editTodo,setEditTodo] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = useParams();
+  const todos = useSelector((state) => {
+    return state.todos;
+  })
 
-  const createTodo = (title, body) => {
-    const newTodo = {
-      id: uuidv4(),
-      title,
-      body,
-      isDone: false,
-    };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  const createTodoFunc = (title, body) => {
+    dispatch(createTodo(title, body))
   };
 
-  const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  };
-
-  const updateTodo = (id) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
-  };
-
-  const startEditTodo = (id) => {
-    const editTodo = todos.filter(todo => todo.id === id)[0]
-    setEditTodo(editTodo);
-  }
-
+  // editTodo //
   const endEditTodo = () => {
-    setTodos((prevTodos) =>
-    prevTodos.map((todo) =>
-      todo.id === editTodo.id ? editTodo : todo
-    )
-  );
-    setEditTodo(null);
+    dispatch(updateTodo(editTodo))
+    navigate('/')
   }
   const deleteEditTodo = () => {
-    deleteTodo(editTodo.id);
+    dispatch(deleteTodo(editTodo.id))
     setEditTodo(null);
   }
 
-  const updateEditTodoTitle = (title) => {
-    setEditTodo((prevTodo)=> { return{...prevTodo,title}})
-  }
-
-  const updateEditTodoBody = (body) => {
-    setEditTodo((prevTodo)=> { return{...prevTodo,body} })
+  const updateEditTodo = (newTodo) => {
+    setEditTodo(newTodo)
+    dispatch(updateTodo(newTodo))
   }
 
   const updateEditTodoIsDone = () => {
     setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
-  }
-
-  const validateTodo = (todo) => {
-    const { id, title, body, isDone } = todo
-    if(typeof id !== 'string') return false
-    if(typeof title !== 'string') return false
-    if(typeof body !== 'string') return false
-    if(typeof isDone !== 'boolean') return false
-    return true
+    dispatch(toggleTodoStatus(editTodo.id))
   }
 
   useEffect(() => {
-    if(todos) {
-      todos.forEach(todo=>console.log(todo.id))
-      const todosString = JSON.stringify(todos)
-      localStorage.setItem('todoData',todosString)
+    if(id) {
+      const data = Object.values(todos).find(todo => todo.id === id);
+      if(data) setEditTodo(data)
+      else navigate('/')
+    } else {
+      setEditTodo(null)
     }
-  },[todos])
-
-  useEffect(() => {
-    const todoData = localStorage.getItem('todoData')
-    try{
-      const parsedTodoData = JSON.parse(todoData)
-      if(parsedTodoData) {
-        const validatedData = parsedTodoData.filter(todo => validateTodo(todo))
-        setTodos(validatedData)
-      } else {
-        setTodos([])
-      }
-    } catch (error) {
-      console.error('localStorage에서 데이터를 가져올 수 없습니다.')
-      setTodos([])
-    }
-  },[])
+  }, [location,editTodo,id,todos,navigate]);
 
   return (
     <div>
-      <TodoForm createTodo={createTodo} />
+      <TodoForm createTodo={createTodoFunc} />
       <TodoList
         todos={todos}
-        deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        editTodo={startEditTodo}
       />
-      {editTodo && (
+      {id && editTodo && (
         <TodoModal
         editTodo={editTodo}
         endEditTodo={endEditTodo}
-        updateEditTodoTitle={updateEditTodoTitle}
-        updateEditTodoBody={updateEditTodoBody}
         deleteTodo={deleteEditTodo}
         updateEditTodoIsDone={updateEditTodoIsDone}
+        updateEditTodo={updateEditTodo}
         />
       )}
     </div>

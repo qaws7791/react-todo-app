@@ -7,7 +7,7 @@ import { MdClose } from 'react-icons/md';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton/IconButton';
 
-const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBody,deleteTodo,updateEditTodoIsDone }) => {
+const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEditTodoIsDone }) => {
   const todoTitle = useRef(editTodo.title);
   const todoBody = useRef(editTodo.body);
 
@@ -20,14 +20,21 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
   }
 
   const handleBlur = () => {
-    updateEditTodoTitle(todoTitle.current);
-    updateEditTodoBody(todoBody.current);
+    updateEditTodo({...editTodo,title: todoTitle.current, body: todoBody.current})
   }
 
   const handleCloseModal = () => {
-    updateEditTodoTitle(todoTitle.current);
-    updateEditTodoBody(todoBody.current);
+    updateEditTodo({...editTodo,title: todoTitle.current, body: todoBody.current})
     endEditTodo()
+  }
+
+  const handleDeleteTodo = () => {
+    deleteTodo();
+  }
+
+
+  const handleToggleIsDone = () => {
+    updateEditTodoIsDone();
   }
 
   return (
@@ -64,14 +71,19 @@ const TodoModal = ({ editTodo ,endEditTodo,updateEditTodoTitle,updateEditTodoBod
             </p>
           </div>
           <div className='todoModal__btns'>
-            <Button onClick={deleteTodo} text='삭제하기'><BsTrash/></Button>
+            <Button onClick={handleDeleteTodo} text='삭제하기'><BsTrash/></Button>
             <Button 
-            onClick={updateEditTodoIsDone} 
+            onClick={handleToggleIsDone} 
             buttonState='fill' 
             text={editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}
             >
               {editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>} 
             </Button>
+          </div>
+          <div className='todoModal__footer'>
+            <span>ID: {editTodo.id}</span>
+            <span>생성 시각: {new Date(editTodo.createdAt).toLocaleString()}</span>
+            <span>수정 시각: {new Date(editTodo.updatedAt).toLocaleString()}</span>
           </div>
         </div>
       </div>

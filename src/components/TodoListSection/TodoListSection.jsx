@@ -5,9 +5,6 @@ import './TodoListSection.css';
 const TodoListSection = ({ 
   title,
   todos,
-  deleteTodo,
-  updateTodo,
-  editTodo,
   columnWidth = 300,
   rowGap = 20 
 }) => {
@@ -18,14 +15,14 @@ const TodoListSection = ({
     if(!resizing) {
       setResizing(true)
       setTimeout(() => {
-        if(componentRef)calcPositions()
+        if(componentRef?.current?.offsetWidth)calcPositions()
         setResizing(false)
       }, 500)
     }
   }
 
   useEffect(() => {
-    handleResize();
+    if(componentRef?.current?.offsetWidth)calcPositions()
   })
 
   useEffect(() => {
@@ -36,20 +33,27 @@ const TodoListSection = ({
   })
 
   function calcPositions() {
-    const colLength = Math.floor(componentRef.current.offsetWidth / columnWidth);
-    const colGap = (componentRef.current.offsetWidth % columnWidth) / (colLength + 1);
-    const childElements = componentRef.current.childNodes;
-    let sumWidth = colGap;
-    let sumHeight = new Array(colLength).fill(0);
-    for (let i = 0; i < childElements.length; i++) {
-      childElements[i].style.transform = `translate(${sumWidth}px, ${sumHeight[i%colLength]}px)`;
+    const listComponent = componentRef.current;
+    const maxColumn = Math.floor(listComponent.offsetWidth / columnWidth);
+    const colLength = maxColumn || 1;
 
-      sumWidth += childElements[i].offsetWidth+colGap;
-      sumHeight[i%colLength] += childElements[i].offsetHeight + rowGap;
+    const colGap =
+      maxColumn > 0
+        ? (listComponent.offsetWidth % columnWidth) / (colLength + 1)
+        : 0;
+    const childElements = listComponent.childNodes;
+    let sumX = colGap;
+    let sumY = new Array(colLength).fill(0);
+    childElements.forEach((childElement, i) => {
+      const colIndex = i % colLength;
+      childElement.style.transform = `translate(${sumX}px, ${sumY[colIndex]}px)`;
 
-      if( i % colLength === colLength-1) sumWidth = colGap
-    }
-    componentRef.current.style.height =`${Math.max(...sumHeight)}px`
+      sumX += childElement.offsetWidth + colGap;
+      sumY[colIndex] += childElement.offsetHeight + rowGap;
+
+      if (colIndex === colLength - 1) sumX = colGap;
+    });
+    listComponent.style.height = `${Math.max(...sumY)}px`;
   }
 
   return (
@@ -60,9 +64,6 @@ const TodoListSection = ({
           <li key={todo.id} className="TodoListSection__Item">
           <TodoItem
             data={todo}
-            deleteFunc={deleteTodo}
-            changeFunc={updateTodo}
-            editFunc={editTodo}
           />
           </li>
         ))}
