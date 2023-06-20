@@ -48,7 +48,7 @@ const TodoApp = () => {
     } else {
       setEditTodo(null)
     }
-  }, [location,editTodo,id,todos]);
+  }, [location,editTodo,id,todos,navigate]);
 
   return (
     <div>
