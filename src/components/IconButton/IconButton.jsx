@@ -1,8 +1,8 @@
-import './IconButton.css'
+import styles from './IconButton.module.css'
 
 const IconButton = ({ role='button',children , ...props }) => {
   return (
-    <button {...props} className='iconButton' aria-label={role}>
+    <button {...props} className={styles['iconButton']} aria-label={role}>
     {children}
     </button>
   )

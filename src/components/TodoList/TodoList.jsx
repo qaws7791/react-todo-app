@@ -1,4 +1,4 @@
-import TodoListSection from "../TodoListSection/TodoListSection";
+import TodoListSection from "../TodoListSection";
 
 const TodoList = ({ todos }) => {
   const workingTodos = [];
@@ -14,13 +14,13 @@ const TodoList = ({ todos }) => {
   return (
     <>
       <TodoListSection
-        title={"진행중인 작업"}
+        title={"진행중인 작업⌛"}
         todos={workingTodos}
         columnWidth={360}
         rowGap={20}
       />
       <TodoListSection
-        title={"완료된 작업"}
+        title={"완료된 작업🎉"}
         todos={doneTodos}
         columnWidth={360}
         rowGap={20}

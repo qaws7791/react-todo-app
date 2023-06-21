@@ -1,12 +1,13 @@
-import { validateTodo } from "../../utils";
+import { getCurrentTimeStamp, validateTodo } from "../../utils";
 import { v4 as uuidv4 } from "uuid";
+import { saveTodosToLocalStorage } from "../../utils";
 const CREATE_TODO = "CREATE_TODO";
 const TOGGLE_TODO_STATUS = "TOGGLE_TODO_STATUS";
 const DELETE_TODO = "DELETE_TODO";
 const UPDATE_TODO = "UPDATE_TODO";
 const LOAD_LOCAL_STORAGE = "LOAD_LOCAL_STORAGE";
 
-//action
+// 액션
 export const createTodo = (title, body) => {
   return (dispatch, getState) => {
     const newTodo = {
@@ -14,13 +15,13 @@ export const createTodo = (title, body) => {
       title,
       body,
       isDone: false,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
+      createdAt: getCurrentTimeStamp(),
+      updatedAt: getCurrentTimeStamp(),
     };
     dispatch({ type: CREATE_TODO, payload: newTodo });
 
-    const state = getState();
-    localStorage.setItem("todoData", JSON.stringify(state.todos));
+    const { todos } = getState();
+    saveTodosToLocalStorage(todos);
   };
 };
 
@@ -28,12 +29,12 @@ export const toggleTodoStatus = (id) => {
   return (dispatch, getState) => {
     const payload = {
       id,
-      updatedAt: new Date().getTime(),
+      updatedAt: getCurrentTimeStamp(),
     };
     dispatch({ type: TOGGLE_TODO_STATUS, payload });
 
-    const state = getState();
-    localStorage.setItem("todoData", JSON.stringify(state.todos));
+    const { todos } = getState();
+    saveTodosToLocalStorage(todos);
   };
 };
 
@@ -41,8 +42,8 @@ export const deleteTodo = (id) => {
   return (dispatch, getState) => {
     dispatch({ type: DELETE_TODO, payload: id });
 
-    const state = getState();
-    localStorage.setItem("todoData", JSON.stringify(state.todos));
+    const { todos } = getState();
+    saveTodosToLocalStorage(todos);
   };
 };
 
@@ -50,12 +51,12 @@ export const updateTodo = (updatedTodo) => {
   return (dispatch, getState) => {
     const newTodo = {
       ...updatedTodo,
-      updatedAt: new Date().getTime(),
+      updatedAt: getCurrentTimeStamp(),
     };
     dispatch({ type: UPDATE_TODO, payload: newTodo });
 
-    const state = getState();
-    localStorage.setItem("todoData", JSON.stringify(state.todos));
+    const { todos } = getState();
+    saveTodosToLocalStorage(todos);
   };
 };
 
@@ -82,7 +83,7 @@ const initialState = [];
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_TODO:
-      return [...state, action.payload];
+      return [action.payload, ...state];
     case TOGGLE_TODO_STATUS:
       return state.map((todo) =>
         todo.id === action.payload.id
@@ -100,7 +101,7 @@ const todos = (state = initialState, action) => {
         todo.id === action.payload.id ? action.payload : todo
       );
     case LOAD_LOCAL_STORAGE:
-      return [...state, ...action.payload];
+      return [...action.payload, ...state];
     default:
       return state;
   }

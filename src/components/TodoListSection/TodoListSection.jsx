@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import TodoItem from "../TodoItem/TodoItem";
-import './TodoListSection.css';
+import TodoItem from "../TodoItem";
+import styles from './TodoListSection.module.css';
 
 const TodoListSection = ({ 
   title,
@@ -57,11 +57,11 @@ const TodoListSection = ({
   }
 
   return (
-    <div className="TodoListSection">
-      <h2 className="TodoListSection__title">{title}</h2>
-      <ul className="TodoListSection__list" ref={componentRef}>
+    <div className={styles['TodoListSection']}>
+      <h2 className={styles['TodoListSection__title']}>{title}</h2>
+      <ul className={styles['TodoListSection__list']} ref={componentRef}>
       {todos.map((todo, index) => (
-          <li key={todo.id} className="TodoListSection__Item">
+          <li key={todo.id} className={styles['TodoListSection__Item']}>
           <TodoItem
             data={todo}
           />
