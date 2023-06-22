@@ -1,11 +1,10 @@
-import React, { useRef } from 'react'
-import './TodoModal.css';
-import Button from '../Button/Button';
+import { useRef } from 'react'
+import styles from './TodoModal.module.css';
+import Button from '../Button';
 import { BsCheckLg, BsTrash } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
-
 import { RiArrowGoBackLine } from 'react-icons/ri';
-import IconButton from '../IconButton/IconButton';
+import IconButton from '../IconButton';
 
 const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEditTodoIsDone }) => {
   const todoTitle = useRef(editTodo.title);
@@ -38,12 +37,12 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
   }
 
   return (
-    <div className='todoModal__container'>
-        <div className='todoModal_bg' onClick={handleCloseModal}></div>
-        <div className="todoModal">
-          <div className='todoModal__closeBtn'>
+    <div className={styles['todoModal__container']}>
+        <div className={styles['todoModal_bg']} onClick={handleCloseModal}></div>
+        <div className={styles['todoModal']}>
+          <div className={styles['todoModal__closeBtn']}>
           <IconButton 
-            className='todoModal__closeBtn' 
+            className={styles['todoModal__closeBtn']}
             onClick={handleCloseModal}
             role='할일 모달 닫기'
           >
@@ -52,7 +51,7 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
           </div>
           <div>
             <h5 
-              className='todoModal__title' 
+              className={styles['todoModal__title']} 
               contentEditable='true' 
               suppressContentEditableWarning={true} 
               onKeyUp={handleInputTitle}
@@ -61,7 +60,7 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
               {todoTitle.current}
             </h5>
             <p 
-              className='todoModal__content' 
+              className={styles['todoModal__content']}
               contentEditable='true' 
               suppressContentEditableWarning={true} 
               onInput={handleInputBody}
@@ -70,7 +69,7 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
             {todoBody.current}
             </p>
           </div>
-          <div className='todoModal__btns'>
+          <div className={styles['todoModal__btns']}>
             <Button onClick={handleDeleteTodo} text='삭제하기'><BsTrash/></Button>
             <Button 
             onClick={handleToggleIsDone} 
@@ -80,7 +79,7 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
               {editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>} 
             </Button>
           </div>
-          <div className='todoModal__footer'>
+          <div className={styles['todoModal__footer']}>
             <span>ID: {editTodo.id}</span>
             <span>생성 시각: {new Date(editTodo.createdAt).toLocaleString()}</span>
             <span>수정 시각: {new Date(editTodo.updatedAt).toLocaleString()}</span>

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import './TodoForm.css'
-import Button from "../Button/Button";
-import Input from "../Input/Input";
+import styles from './TodoForm.module.css'
+import Button from "../Button";
+import Input from "../Input";
 
 const TodoForm = ({ createTodo }) => {
   const [title, setTitle] = useState("");
@@ -29,11 +29,11 @@ const TodoForm = ({ createTodo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="todoForm">
-      <fieldset className="todoForm__fieldset">
+    <form onSubmit={handleSubmit} className={styles['todoForm']}>
+      <fieldset className={styles['todoForm__fieldset']}>
         <legend className="visually-hidden">할일 추가하기</legend>
-        <div className="todoForm__formItem">
-          <label htmlFor="title" className="todoForm__label">할일 제목</label>
+        <div className={styles['todoForm__formItem']}>
+          <label htmlFor="title" className={styles['todoForm__label']}>할일 제목</label>
           <Input
             type="text"
             id="title"
@@ -43,8 +43,8 @@ const TodoForm = ({ createTodo }) => {
             placeholder="할일 제목을 입력하세요..."
           />
         </div>
-        <div className="todoForm__formItem">
-          <label htmlFor="content" className="todoForm__label">할일 내용</label>
+        <div className={styles['todoForm__formItem']}>
+          <label htmlFor="content" className={styles['todoForm__label']}>할일 내용</label>
           <Input
             type="text"
             id="content"

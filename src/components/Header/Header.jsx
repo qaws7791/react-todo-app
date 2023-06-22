@@ -1,10 +1,9 @@
-import React from 'react'
-import './Header.css'
+import styles from './Header.module.css'
 const Header = ({title = '', subTitle = ''}) => {
   return (
-    <header className='header'>
-      <h1 className='header__title'>{title}</h1>
-      <p className='header__subtitle'>{subTitle}</p>
+    <header className={styles['header']}>
+      <h1 className={styles['header__title']}>{title}</h1>
+      <p className={styles['header__subtitle']}>{subTitle}</p>
     </header>
   )
 }
