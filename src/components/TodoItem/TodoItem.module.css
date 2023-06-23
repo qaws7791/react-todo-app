@@ -23,12 +23,18 @@
   justify-content: space-around;
 }
 
-.todoItem__editBtn {
+.todoItem__link {
   display: flex;
-  font-size: 2.4rem;
+  font-size: 3rem;
   width: 3rem;
   height: 3rem;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border-radius: 1rem;
+  padding: 0.4rem;
+}
+
+.todoItem__link:hover {
+  background-color: rgba(171, 171, 171, 0.3);
 }
