@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import TodoForm from '../TodoForm/TodoForm'
-import TodoList from '../TodoList/TodoList'
-import TodoModal from '../TodoModal/TodoModal'
+import TodoForm from '../TodoForm'
+import TodoList from '../TodoList'
+import TodoModal from '../TodoModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../../redux/modules/todos'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { findTodoById } from '../../utils'
 
 const TodoApp = () => {
   const [editTodo,setEditTodo] = useState(null);
@@ -36,13 +37,13 @@ const TodoApp = () => {
   }
 
   const updateEditTodoIsDone = () => {
-    setEditTodo((prevTodo)=> {return{...prevTodo,isDone:!(prevTodo.isDone)}});
     dispatch(toggleTodoStatus(editTodo.id))
+    navigate('/')
   }
 
   useEffect(() => {
     if(id) {
-      const data = Object.values(todos).find(todo => todo.id === id);
+      const data = findTodoById(todos,id);
       if(data) setEditTodo(data)
       else navigate('/')
     } else {

@@ -6,3 +6,12 @@ export const validateTodo = (todo) => {
   if (typeof isDone !== "boolean") return false;
   return true;
 };
+
+export const findTodoById = (todos, id) =>
+  Object.values(todos).find((todo) => todo.id === id);
+
+export const saveTodosToLocalStorage = (todos) => {
+  localStorage.setItem("todoData", JSON.stringify(todos));
+};
+
+export const getCurrentTimeStamp = () => new Date().getTime();
