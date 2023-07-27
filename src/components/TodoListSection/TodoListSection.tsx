@@ -1,20 +1,30 @@
 import { useCallback, useEffect, useRef, useState,memo, useLayoutEffect } from "react";
 import TodoItem from "../TodoItem";
 import styles from './TodoListSection.module.css';
+import { Todo } from "../../redux/modules/todos";
+
+interface TodoListSectionProps {
+  title: string;
+  todos: Todo[];
+  columnWidth?: number;
+  rowGap?: number;
+
+}
 
 const TodoListSection = ({ 
   title,
   todos,
   columnWidth = 300,
   rowGap = 20 
-}) => {
-  const componentRef = useRef(null);
-  const [resizing, setResizing] = useState(false);
-  const [height,setHeight] = useState(0);
-  const [positions,setPositions] = useState([[0,0]]);
+}:TodoListSectionProps) => {
+  const componentRef = useRef<HTMLUListElement|null>(null);
+  const [resizing, setResizing] = useState<boolean>(false);
+  const [height,setHeight] = useState<number>(0);
+  const [positions,setPositions] = useState<number[][]>([[0,0]]);
 
   const calcPositions = useCallback(()=> {
     const listComponent = componentRef.current;
+    if(!listComponent) return
     const maxColumn = Math.floor(listComponent.offsetWidth / columnWidth);
     const colLength = maxColumn || 1;
 
@@ -22,10 +32,10 @@ const TodoListSection = ({
       maxColumn > 0
         ? (listComponent.offsetWidth % columnWidth) / (colLength + 1)
         : 0;
-    const childElements = listComponent.childNodes;
+    const childElements:HTMLElement[] = Array.from(listComponent.childNodes) as HTMLElement[]; 
     let sumX = colGap;
     let sumY = new Array(colLength).fill(0);
-    const calculatedPositions = []
+    const calculatedPositions:number[][] = []
     childElements.forEach((childElement, i) => {
       const colIndex = i % colLength;
       //childElement.style.transform = `translate(${sumX}px, ${sumY[colIndex]}px)`;
@@ -71,7 +81,7 @@ const TodoListSection = ({
       {todos.map((todo, index) => (
             <li key={todo.id} className={styles['TodoListSection__Item']} style={positions[index] && {transform:`translate(${positions[index][0]}px, ${positions[index][1]}px)`}}>
           <TodoItem
-            data={todo}
+            todo={todo}
           />
           </li>
         ))}

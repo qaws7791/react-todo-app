@@ -2,16 +2,18 @@ import { useState } from "react";
 import styles from './TodoForm.module.css'
 import Button from "../Button";
 import Input from "../Input";
+import { useDispatch } from "react-redux";
+import { createTodo } from "../../redux/modules/todos";
 
-const TodoForm = ({ createTodo }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const handleSubmit = (e) => {
+const TodoForm = () => {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const dispatch = useDispatch()
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!title) return alert("제목을 입력해주세요.");
     if (!content) return alert("내용을 입력해주세요.");
-    createTodo(title, content);
+    dispatch(createTodo({title,body:content}))
     clearForm();
   };
 
@@ -20,12 +22,12 @@ const TodoForm = ({ createTodo }) => {
     setContent("");
   };
 
-  const onChangeTitleInput = ({ target }) => {
-    setTitle(target.value);
+  const onChangeTitleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
-  const onChangeContentInput = ({ target }) => {
-    setContent(target.value);
+  const onChangeContentInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
   };
 
   return (

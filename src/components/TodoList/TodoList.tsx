@@ -1,8 +1,15 @@
 import { useMemo } from "react";
 import TodoListSection from "../TodoListSection";
+import { Todo } from "../../redux/modules/todos";
 
-const TodoList = ({ todos }) => {
 
+interface TodoListProps {
+  todos: Todo[];
+}
+
+const TodoList = ({ 
+  todos 
+}:TodoListProps) => {
   //첫 번째 방법
   // const workingTodos = [];
   // const doneTodos = [];
@@ -19,12 +26,15 @@ const TodoList = ({ todos }) => {
   // const doneTodos = todos?.filter((item) => item.isDone) || [];
 
   //세 번째 방법
-  const [workingTodos, doneTodos] = useMemo(()=>todos?.reduce(
-    (acc, item) => {
-      if (item.isDone) acc[1].push(item);
-      else acc[0].push(item);
-      return acc;
-    },[[],[]]),[todos])
+  const [workingTodos, doneTodos] = useMemo(()=>{
+    const emptyTodos:[Todo[],Todo[]] = [[],[]]
+    return todos?.reduce(
+      (acc, item) => {
+        if (item.isDone) acc[1].push(item);
+        else acc[0].push(item);
+        return acc;
+      },emptyTodos) || emptyTodos
+  },[todos])
     
   return (
     <>
