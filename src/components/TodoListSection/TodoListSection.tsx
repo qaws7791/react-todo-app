@@ -20,7 +20,7 @@ const TodoListSection = ({
   const componentRef = useRef<HTMLUListElement|null>(null);
   const [resizing, setResizing] = useState<boolean>(false);
   const [height,setHeight] = useState<number>(0);
-  const [positions,setPositions] = useState<[number,number][]>([[0,0]]);
+  const [positions,setPositions] = useState<number[][]>([[0,0]]);
 
   const calcPositions = useCallback(()=> {
     const listComponent = componentRef.current;
