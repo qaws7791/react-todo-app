@@ -3,7 +3,6 @@ import { BsTrash } from 'react-icons/bs';
 import { BsCheckLg } from 'react-icons/bs';
 import {LuEdit} from 'react-icons/lu';
 import { RiArrowGoBackLine } from 'react-icons/ri';
-import IconButton from '../IconButton';
 import { useDispatch } from 'react-redux';
 import { deleteTodo, toggleTodoStatus } from '../../redux/modules/todos';
 import { Link } from 'react-router-dom';
@@ -25,14 +24,9 @@ const TodoItem = ({ data }) => {
     <div className={styles['todoItem']}>
       <div>
         <h5 className={styles['todoItem__title']}>{title}</h5>
-          <IconButton 
-            className={styles['todoItem__editBtn']}
-            role='할일 편집을 위해 모달 열기'
-          >
-            <Link to={`/todo/${id}`}>
+        <Link to={`/todo/${id}`} className={styles['todoItem__link']}>
             <LuEdit/>
-            </Link>
-          </IconButton>
+        </Link>
         <p className={styles['todoItem__content']}>{body}</p>
       </div>
       <div className={styles['todoItem__btns']}>
