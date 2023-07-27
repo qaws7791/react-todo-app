@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TodoForm, TodoList, TodoModal} from '../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../redux/modules/todos'
+import { Todo, deleteTodo, toggleTodoStatus, updateTodo } from '../redux/modules/todos'
 import { useNavigate, useParams } from 'react-router-dom'
 import { findTodoById } from '../utils'
+import { RootState } from '../redux/config/configStore'
 
 const TodoApp = () => {
-  const [editTodo,setEditTodo] = useState(null);
+  const [editTodo,setEditTodo] = useState<Todo | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const todos = useSelector((state) => {
+  const todos = useSelector((state:RootState) => {
     return state.todos;
   })
 
-  const createTodoFunc = (title, body) => {
-    dispatch(createTodo(title, body))
-  };
 
   // editTodo //
   const endEditTodo = () => {
+    if(!editTodo) return
     dispatch(updateTodo(editTodo))
     navigate('/')
   }
+
   const deleteEditTodo = () => {
+    if(!editTodo?.id) return
     dispatch(deleteTodo(editTodo.id))
     setEditTodo(null);
   }
 
-  const updateEditTodo = (newTodo) => {
+  const updateEditTodo = (newTodo:Todo) => {
     setEditTodo(newTodo)
     dispatch(updateTodo(newTodo))
   }
 
   const updateEditTodoIsDone = () => {
+    if(!editTodo?.id) return
     dispatch(toggleTodoStatus(editTodo.id))
     navigate('/')
   }
@@ -50,7 +52,7 @@ const TodoApp = () => {
 
   return (
     <div>
-      <TodoForm createTodo={createTodoFunc} />
+      <TodoForm/>
       <TodoList
         todos={todos}
       />

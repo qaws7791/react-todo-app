@@ -5,17 +5,35 @@ import { BsCheckLg, BsTrash } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import IconButton from '../IconButton';
+import { Todo } from '../../redux/modules/todos';
 
-const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEditTodoIsDone }) => {
+
+interface TodoModalProps {
+  editTodo: Todo,
+  deleteTodo: () => void,
+  endEditTodo: () => void,
+  updateEditTodo: (todo: Todo) => void,
+  updateEditTodoIsDone: () => void,
+}
+
+const TodoModal = ({ 
+  editTodo,
+  endEditTodo, 
+  deleteTodo, 
+  updateEditTodo,
+  updateEditTodoIsDone 
+}:TodoModalProps) => {
   const todoTitle = useRef(editTodo.title);
   const todoBody = useRef(editTodo.body);
 
-  const handleInputTitle = (e) => {
-    todoTitle.current = e.target.innerText;
+  const handleInputTitle = (e:React.KeyboardEvent<HTMLHeadingElement>) => {
+    const target = e.target as HTMLHeadingElement;
+    todoTitle.current = target.innerText;
   }
 
-  const handleInputBody = (e) => {
-    todoBody.current = e.target.innerText;
+  const handleInputBody = (e:React.KeyboardEvent<HTMLHeadingElement>) => {
+    const target = e.target as HTMLParagraphElement;
+    todoBody.current = target.innerText;
   }
 
   const handleBlur = () => {
@@ -70,13 +88,13 @@ const TodoModal = ({ editTodo, deleteTodo, updateEditTodo,endEditTodo,updateEdit
             </p>
           </div>
           <div className={styles['todoModal__btns']}>
-            <Button onClick={handleDeleteTodo} text='삭제하기'><BsTrash/></Button>
+            <Button onClick={handleDeleteTodo} icon={<BsTrash/>}>삭제하기</Button>
             <Button 
             onClick={handleToggleIsDone} 
             buttonState='fill' 
-            text={editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}
+            icon={editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>}
             >
-              {editTodo.isDone ? <RiArrowGoBackLine/> : <BsCheckLg/>} 
+               {editTodo.isDone ? "진행중인 상태로 변경" : "완료된 상태로 변경"}
             </Button>
           </div>
           <div className={styles['todoModal__footer']}>

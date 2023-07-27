@@ -1,5 +1,14 @@
 import styles from './Header.module.css'
-const Header = ({title = '', subTitle = ''}) => {
+
+interface HeaderProps {
+  title?: string
+  subTitle?: string
+}
+
+const Header = ({
+  title = '', 
+  subTitle = ''
+}:HeaderProps) => {
   return (
     <header className={styles['header']}>
       <h1 className={styles['header__title']}>{title}</h1>

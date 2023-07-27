@@ -1,9 +1,16 @@
 import React from 'react'
-import './Layout.css'
+import styles from './Layout.module.css'
 import { Header } from './components'
-const Layout = ({ children }) => {
+
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+const Layout = ({ 
+  children 
+}:LayoutProps) => {
   return (
-    <div className='layout'>
+    <div className={styles['layout']}>
       <Header title="TODO LIST" subTitle="BY REACT"/>
         <main>
         { children }
