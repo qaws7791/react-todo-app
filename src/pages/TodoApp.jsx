@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import TodoForm from '../TodoForm'
-import TodoList from '../TodoList'
-import TodoModal from '../TodoModal'
+import { TodoForm, TodoList, TodoModal} from '../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../../redux/modules/todos'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { findTodoById } from '../../utils'
+import { createTodo, deleteTodo, toggleTodoStatus, updateTodo } from '../redux/modules/todos'
+import { useNavigate, useParams } from 'react-router-dom'
+import { findTodoById } from '../utils'
 
 const TodoApp = () => {
   const [editTodo,setEditTodo] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
   const todos = useSelector((state) => {
     return state.todos;
@@ -49,7 +46,7 @@ const TodoApp = () => {
     } else {
       setEditTodo(null)
     }
-  }, [location,editTodo,id,todos,navigate]);
+  }, [id,navigate,todos]);
 
   return (
     <div>
