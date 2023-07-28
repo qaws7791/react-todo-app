@@ -1,18 +1,15 @@
 import { useCallback, useEffect, useRef, useState,memo, useLayoutEffect } from "react";
 import TodoItem from "../TodoItem";
-import styles from './TodoListSection.module.css';
+import styles from './TodoSectionContents.module.css';
 import { Todo } from "../../redux/modules/todos";
 
 interface TodoListSectionProps {
-  title: string;
   todos: Todo[];
   columnWidth?: number;
   rowGap?: number;
-
 }
 
-const TodoListSection = ({ 
-  title,
+const TodoSectionContents = ({ 
   todos,
   columnWidth = 300,
   rowGap = 20 
@@ -75,8 +72,6 @@ const TodoListSection = ({
   },[handleResize])
 
   return (
-    <div className={styles['TodoListSection']}>
-      <h2 className={styles['TodoListSection__title']}>{title}</h2>
       <ul className={styles['TodoListSection__list']} ref={componentRef} style={{height: `${height}px`}}>
       {todos.map((todo, index) => (
             <li key={todo.id} className={styles['TodoListSection__Item']} style={positions[index] && {transform:`translate(${positions[index][0]}px, ${positions[index][1]}px)`}}>
@@ -86,8 +81,7 @@ const TodoListSection = ({
           </li>
         ))}
       </ul>
-    </div>
   );
 };
 
-export default memo(TodoListSection);
+export default memo(TodoSectionContents);

@@ -1,6 +1,8 @@
 import { useMemo } from "react";
-import TodoListSection from "../TodoListSection";
 import { Todo } from "../../redux/modules/todos";
+import TodoSection from "../TodoSection";
+import TodoSectionTitle from "../TodoSectionTitle/TodoSectionTitle";
+import TodoSectionContents from "../TodoSectionContents";
 
 
 interface TodoListProps {
@@ -38,18 +40,26 @@ const TodoList = ({
     
   return (
     <>
-      <TodoListSection
-        title={"진행중인 작업⌛"}
-        todos={workingTodos}
-        columnWidth={360}
+    <TodoSection>
+      <TodoSectionTitle>
+      "진행중인 작업⌛"
+      </TodoSectionTitle>
+      <TodoSectionContents 
+        todos={workingTodos} 
+        columnWidth={360} 
         rowGap={20}
       />
-      <TodoListSection
-        title={"완료된 작업🎉"}
-        todos={doneTodos}
-        columnWidth={360}
+    </TodoSection>
+    <TodoSection>
+      <TodoSectionTitle>
+      "완료된 작업🎉"
+      </TodoSectionTitle>
+      <TodoSectionContents 
+        todos={doneTodos} 
+        columnWidth={360} 
         rowGap={20}
       />
+    </TodoSection>
     </>
   );
 };
