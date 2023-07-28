@@ -58,11 +58,11 @@ const TodoApp = () => {
       />
       {id && editTodo && (
         <TodoModal
-        editTodo={editTodo}
-        endEditTodo={endEditTodo}
-        deleteTodo={deleteEditTodo}
-        updateEditTodoIsDone={updateEditTodoIsDone}
-        updateEditTodo={updateEditTodo}
+          editTodo={editTodo}
+          endEditTodo={endEditTodo}
+          deleteTodo={deleteEditTodo}
+          updateEditTodoIsDone={updateEditTodoIsDone}
+          updateEditTodo={updateEditTodo}
         />
       )}
     </div>
