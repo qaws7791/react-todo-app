@@ -6,7 +6,7 @@ import store from "./redux/config/configStore";
 import { loadLocalStorageAsync } from "./redux/modules/todos";
 import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 store.dispatch(loadLocalStorageAsync());
 

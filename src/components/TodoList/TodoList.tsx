@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { Todo } from "../../redux/modules/todos";
-import TodoSection from "../TodoSection";
-import TodoSectionTitle from "../TodoSectionTitle/TodoSectionTitle";
-import TodoSectionContents from "../TodoSectionContents";
+import TodoSection from "./TodoSection";
+import TodoSectionTitle from "./TodoSectionTitle/TodoSectionTitle";
+import TodoSectionContents from "./TodoSectionContents";
 
 
 interface TodoListProps {

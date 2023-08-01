@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState,memo, useLayoutEffect } from "react";
-import TodoItem from "../TodoItem";
+import TodoItem from "../../TodoItem";
 import styles from './TodoSectionContents.module.css';
-import { Todo } from "../../redux/modules/todos";
+import { Todo } from "../../../redux/modules/todos";
 
 interface TodoListSectionProps {
   todos: Todo[];

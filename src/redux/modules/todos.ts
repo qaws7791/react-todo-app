@@ -23,7 +23,7 @@ const todosSlice = createSlice({
   reducers: {
     createTodo: (
       state,
-      action: PayloadAction<{ title: string; body: string }>
+      action: PayloadAction<Pick<Todo, "title" | "body">>
     ) => {
       const currentTime = getCurrentTimeStamp();
       const newTodo: Todo = {
@@ -36,14 +36,14 @@ const todosSlice = createSlice({
       };
       state.unshift(newTodo);
     },
-    toggleTodoStatus: (state, action: PayloadAction<string>) => {
+    toggleTodoStatus: (state, action: PayloadAction<Todo["id"]>) => {
       const todo = state.find((todo) => todo.id === action.payload);
       if (todo) {
         todo.isDone = !todo.isDone;
         todo.updatedAt = getCurrentTimeStamp();
       }
     },
-    deleteTodo: (state, action: PayloadAction<string>) => {
+    deleteTodo: (state, action: PayloadAction<Todo["id"]>) => {
       return state.filter((todo) => todo.id !== action.payload);
     },
     updateTodo: (state, action: PayloadAction<Todo>) => {

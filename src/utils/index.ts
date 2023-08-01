@@ -1,6 +1,6 @@
 import { Todo } from "../redux/modules/todos";
 
-export const validateTodo = (todo: Todo) => {
+export const validateTodo = (todo: Todo): boolean => {
   const { id, title, body, isDone } = todo;
   if (
     typeof id !== "string" ||
@@ -15,7 +15,7 @@ export const validateTodo = (todo: Todo) => {
 export const findTodoById = (todos: Todo[], id: string): Todo | undefined =>
   Object.values(todos).find((todo) => todo.id === id);
 
-export const saveTodosToLocalStorage = (todos: Todo[]) => {
+export const saveTodosToLocalStorage = (todos: Todo[]): void => {
   localStorage.setItem("todoData", JSON.stringify(todos));
 };
 
@@ -37,4 +37,4 @@ export const getTodosFromLocalStorage = (): Todo[] => {
   }
 };
 
-export const getCurrentTimeStamp = () => new Date().getTime();
+export const getCurrentTimeStamp = (): number => new Date().getTime();
