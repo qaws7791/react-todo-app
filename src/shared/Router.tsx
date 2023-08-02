@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { TodoApp } from "../components";
+import TodoApp from "../pages/TodoApp";
 
 const Router = () => {
   return (
